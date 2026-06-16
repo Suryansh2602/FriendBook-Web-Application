@@ -25,7 +25,14 @@ public class SecurityConfig {
     }
 
 
-
+  @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers("/actuator/**").authenticated()
+            .and()
+            .httpBasic();
+    }
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
